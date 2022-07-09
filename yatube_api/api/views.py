@@ -4,7 +4,7 @@ from django.shortcuts import get_object_or_404
 from rest_framework import permissions
 
 from posts.models import Post, Group, Follow
-from serializers import (PostSerializer, GroupSerializer,
+from .serializers import (PostSerializer, GroupSerializer,
                                CommentSerializer, FollowSerializer)
 from .permissions import IsUserOrReadOnly
 
