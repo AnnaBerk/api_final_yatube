@@ -13,7 +13,7 @@ from rest_framework.pagination import LimitOffsetPagination
 class PostViewSet(viewsets.ModelViewSet):
     queryset = Post.objects.all()
     serializer_class = PostSerializer
-    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly, IsUserOrReadOnly]
     pagination_class = LimitOffsetPagination
 
     def perform_create(self, serializer):
@@ -23,12 +23,12 @@ class PostViewSet(viewsets.ModelViewSet):
 class GroupViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = Group.objects.all()
     serializer_class = GroupSerializer
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly, IsUserOrReadOnly]
 
 
 class CommentViewSet(viewsets.ModelViewSet):
     serializer_class = CommentSerializer
-    permission_classes = [permissions.IsAuthenticated,
-                          IsUserOrReadOnly]
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly, IsUserOrReadOnly]
 
     def get_queryset(self):
         post = get_object_or_404(Post, pk=self.kwargs.get('post_id'))
