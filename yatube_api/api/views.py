@@ -38,6 +38,7 @@ class CommentViewSet(viewsets.ModelViewSet):
         post = get_object_or_404(Post, pk=self.kwargs.get('post_id'))
         serializer.save(author=self.request.user, post=post)
 
+
 class FollowViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = Follow.objects.all()
     serializer_class = FollowSerializer
