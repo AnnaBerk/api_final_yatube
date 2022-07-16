@@ -11,8 +11,8 @@ class Group(models.Model):
 
     def __str__(self):
         return self.title
-    
-    
+
+
 class Post(models.Model):
     text = models.TextField()
     pub_date = models.DateTimeField('Дата публикации', auto_now_add=True)
@@ -27,7 +27,7 @@ class Post(models.Model):
 
     def __str__(self):
         return self.text
-    
+
 
 class Comment(models.Model):
     author = models.ForeignKey(

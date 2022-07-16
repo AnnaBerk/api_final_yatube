@@ -12,13 +12,13 @@ class PostSerializer(serializers.ModelSerializer):
     class Meta:
         fields = '__all__'
         model = Post
-        
+
 
 class GroupSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Group
-        fields = ('title', 'slug', 'description')        
+        fields = ('title', 'slug', 'description')
 
 
 class CommentSerializer(serializers.ModelSerializer):
@@ -40,7 +40,7 @@ class FollowSerializer(serializers.ModelSerializer):
     following = serializers.SlugRelatedField(
         slug_field='username',
         queryset=User.objects.all(),
-      )
+    )
 
     class Meta:
         model = Follow
@@ -52,3 +52,10 @@ class FollowSerializer(serializers.ModelSerializer):
                 message=('Подписка на автора оформлена ранее!')
             ),
         )
+
+    def validate(self, data):
+        if data['user'] == data['following']:
+            raise serializers.ValidationError(
+                'Нельзя подписаться на себя!'
+            )
+        return data
